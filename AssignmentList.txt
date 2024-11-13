@@ -1,0 +1,8 @@
+Q1: Create Student class with name and marks, write a method to find top 3 Students from the list of studentss based on marks.
+
+Q2: Create a ArrayList type of integers. Add 10 elements to list 
+> find out all the odd numbers that exist in the list.
+> Find out min element.
+> Sort all values in desc order
+
+Q3. Write a Java method with a list of 15 string and print top N frequent used words from list.
