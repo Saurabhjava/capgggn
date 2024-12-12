@@ -7,6 +7,7 @@
 		
 		<context:annotation-config/>
 		<context:component-scan base-package="com"/>
+		<context:property-placeholder location="classpath:data.properties"/>
 		<!-- <bean id="emp" class="com.cg.bean.Employee" autowire="default">
 			<property name="address" ref="address"/>  for that we need setter and getter
 		</bean>

@@ -2,20 +2,23 @@ package com.cg.bean;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Employee {
+	@Value("${eid}")
 	private String empid;
+	@Value("${fname}")
 	private String name;
+	@Value("${email}")
 	private String email;
 	@Autowired
-	private Address address;
+	@Qualifier("perAddress")
+	private IAddress corAddress;
 
 	public Employee() {
-		this.empid = "101";
-		this.name = "Ankan";
-		this.email = "ankan@gmail.com";
+		
 	}
 
 	public String getEmpid() {
@@ -48,9 +51,9 @@ public class Employee {
 		System.out.println("Email: " + email);
 
 		System.out.println("=========Address========");
-		System.out.println("City: " + address.getCity());
-		System.out.println("Country: " + address.getCountry());
-		System.out.println("Zip: " + address.getZip());
+		System.out.println("City: " + corAddress.getCity());
+		System.out.println("Country: " + corAddress.getCountry());
+		System.out.println("Zip: " + corAddress.getZip());
 
 	}
 }

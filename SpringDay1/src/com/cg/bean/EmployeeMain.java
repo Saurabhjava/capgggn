@@ -9,6 +9,10 @@ public class EmployeeMain {
 		ApplicationContext ctx=new ClassPathXmlApplicationContext("bean.xml");
 		Employee emp=ctx.getBean(Employee.class);
 		//emp.setAddress(new Address("Delhi", "India", 110070));
+//		emp.setName("Amit");
+//		emp.setEmpid("1001");
+//		emp.setEmail("amit@gmail.com");
+		
 		emp.printEmployee();
 
 	}
