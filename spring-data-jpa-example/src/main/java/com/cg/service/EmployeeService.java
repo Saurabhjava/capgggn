@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cg.bean.Employee;
 import com.cg.dao.IEmployeeRepo;
+import com.cg.exception.EmployeeNotFoundException;
 
 @Service
 public class EmployeeService implements IEmployeeService {
@@ -15,9 +16,8 @@ public class EmployeeService implements IEmployeeService {
 	private IEmployeeRepo repo;
 	
 	
-	public void createEmployee(Employee emp) {
-		repo.saveAndFlush(emp);
-		System.out.println("Employee Created....");
+	public Employee createEmployee(Employee emp) {
+		return repo.saveAndFlush(emp);
 	}
 
 
@@ -28,14 +28,14 @@ public class EmployeeService implements IEmployeeService {
 
 
 	@Override
-	public Employee getEmployeeByID(int empid) {
+	public Employee getEmployeeByID(int empid) throws EmployeeNotFoundException {
 		Optional<Employee> op= repo.findById(empid); //12
 		if(op.isPresent())
 			return op.get();
 		else
-			return null;
+			throw new EmployeeNotFoundException("Employee with "+empid+" not Found");
 		
-		//return repo.getById(empid);
+		
 	}
 
 
@@ -46,16 +46,23 @@ public class EmployeeService implements IEmployeeService {
 
 
 	@Override
-	public void removeEmployee(int empid) {
-		// TODO Auto-generated method stub
+	public String removeEmployee(int empid) throws EmployeeNotFoundException {
+		Employee e=getEmployeeByID(empid);
+		if(e!=null) {
+			repo.delete(e);
+			return "Employee Deleted";
+		} else {
+			return "Employee Not Found";
+		}
 		
 	}
 
 
 	@Override
-	public void updateEmployee(Employee emp) {
-		repo.saveAndFlush(emp);
-		System.out.println("Employee Updated.....");
+	public void updateEmployee(Employee emp) throws EmployeeNotFoundException {
+		Employee e=getEmployeeByID(emp.getEmpid());
+		if(e!=null)
+			repo.saveAndFlush(emp);
 		
 	}
 

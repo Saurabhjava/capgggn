@@ -2,37 +2,37 @@ package com.cg.bean;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int empid;
-	@Override
-	public String toString() {
-		return "Employee [empid=" + empid + ", name=" + name + ", dob=" + dob + ", salary=" + salary + ", department="
-				+ department + "]";
-	}
-
+	@NotNull(message = "Name should not be null")
+	@NotBlank(message = "Name can not be blank")
 	private String name;
+	@JsonFormat(pattern = "dd-MMM-yyyy")
 	private LocalDate dob;
 	private double salary;
+	@Email(message = "Invalid Email")
+	private String email;
 	private String department;
 	
-	public Employee() {
-		// TODO Auto-generated constructor stub
+	public String getEmail() {
+		return email;
 	}
 
-	public Employee( String name, LocalDate dob, double salary, String department) {
-		super();
-		this.name = name;
-		this.dob = dob;
-		this.salary = salary;
-		this.department = department;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getEmpid() {
